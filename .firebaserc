@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "oshop-cdd5a"
+  },
+  "targets": {
+    "oshop-cdd5a": {
+      "hosting": {
+        "ooshop": [
+          "oshop-cdd5a"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

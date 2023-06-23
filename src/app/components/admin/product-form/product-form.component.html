@@ -1,0 +1,89 @@
+<div class="row" >
+  <div class="col-md-6">
+    <form #f="ngForm" (ngSubmit)="save(f.value)" >
+     
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input
+            #title="ngModel"
+            [ngModel]="product?.title"
+            (ngModelChange)="product!.title = $event"
+            name="title"
+            type="text"
+            class="form-control"
+            required
+          />
+  
+          <div class="alert alert-danger" *ngIf="title.touched && title.invalid">
+            <div *ngIf="title.errors?.['required']">Title is required</div>
+          </div>
+          <label for="price">Price</label>
+          <div class="input-group mb-3">
+            <span class="input-group-text">$</span>
+            <input
+              #price="ngModel"
+              [ngModel]="product?.price"
+              (ngModelChange)="product!.price = $event"
+              name="price"
+              type="number"
+              class="form-control"
+              required
+              min="0"
+            />
+          </div>
+  
+          <div class="alert alert-danger" *ngIf="price.touched && price.invalid">
+            <div *ngIf="price.errors?.['required']">Price is required</div>
+            <div *ngIf="price.errors?.['min']">Price should be 0 or higher</div>
+          </div>
+  
+          <label for="category">Category</label>
+          <select
+            #category="ngModel"
+            [ngModel]="product?.category"
+            (ngModelChange)="product!.category = $event"
+            name="category"
+            class="form-select"
+            aria-label="Default select example"
+            required
+          >
+            <option *ngFor="let c of categories$ | async" [ngValue]="c.payload.key">
+              {{ c.payload.val().name }}
+            </option>
+          </select>
+          <div class="alert alert-danger" *ngIf="category.touched && category.invalid">
+            <div *ngIf="category.errors?.['required']">Category is required</div>
+          </div>
+  
+          <label for="imageUrl">Image URL</label>
+          <input
+            #imageUrl="ngModel"
+            [ngModel]="product?.imageUrl"
+            (ngModelChange)="product!.imageUrl = $event"
+            name="imageUrl"
+            type="text"
+            class="form-control"
+            required
+            pattern="^(https?://)?(www\.)?([\w-]+\.)+[\w]{2,}(\/.*)*$"
+          />
+          <div class="alert alert-danger" *ngIf="imageUrl.touched && imageUrl.invalid">
+            <div *ngIf="imageUrl.errors?.['required']">Image Url is required</div>
+            <div *ngIf="imageUrl.errors?.['pattern']">Please enter a valid URL</div>
+          </div>
+          <br />
+  
+          <button class="btn btn-primary">Save</button>
+          <button type="button" (click)="delete()" class="btn btn-danger">Delete</button>
+        </div>
+    </form>
+  </div>
+  <div class="col-md-6">
+    <div class="card" style="width: 18rem">
+      <img class="card-img-top" [src] = "product?.imageUrl || imageUrl.value"/>
+      <div class="card-body">
+        <h5 class="card-title">{{product?.title || title.value}}</h5>
+        <p class="card-text">{{product?.price || price.value | currency: 'USD': true}}</p>
+      </div>
+    </div>
+  </div>
+</div>
