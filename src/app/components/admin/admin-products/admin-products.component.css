@@ -1,0 +1,32 @@
+table {
+    width: 100%;
+  }
+  
+  .mat-mdc-form-field {
+    font-size: 18px;
+    width: 100%;
+  }
+  
+  .filter-container {
+    margin-bottom: 10px;
+  }
+  
+  .mat-elevation-z8 {
+    padding: 20px;
+    border-radius: 4px;
+    background-color: #fff;
+  }
+  
+  .mat-header-cell {
+    font-weight: bold;
+  }
+  
+  .paginator-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+  }
+  
+
+  
+  

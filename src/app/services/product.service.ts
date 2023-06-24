@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireObject, SnapshotAction } from '@angular/fire/compat/database';
 import { Product } from '../model/product';
-import { Observable ,map} from 'rxjs';
+import { Observable ,map, tap} from 'rxjs';
 
 
 
@@ -19,13 +19,17 @@ export class ProductService {
   getAll() {
     return this.db.list('/products').snapshotChanges().pipe(
       map((snapshotActions: SnapshotAction<unknown>[]) =>
-        snapshotActions.map((snapshotAction: SnapshotAction<unknown>) => ({
-          key: snapshotAction.key,
-          ...(snapshotAction.payload.val() as Product)
-        }))
-      )
+        snapshotActions.map((snapshotAction: SnapshotAction<unknown>) => {
+          const payload = snapshotAction.payload.val() as Product;
+          const key = snapshotAction.key;
+          return { key, ...payload };
+        })
+      ),
+      tap(products => console.log(products)) // Optional: Check if the products are retrieved correctly
     );
   }
+  
+  
   
 
   getProduct(id: string | null) {

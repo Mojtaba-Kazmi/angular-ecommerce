@@ -24,7 +24,14 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { ProductFormComponent } from './components/admin/product-form/product-form.component';
 
 import { FormsModule } from '@angular/forms';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { ProductFilterComponent } from './components/products/product-filter/product-filter.component';
+import { ProductCardComponent } from './components/product-card/product-card.component';
 
 
 
@@ -41,16 +48,24 @@ import { FormsModule } from '@angular/forms';
     CheckOutComponent,
     AdminOrdersComponent,
     AdminProductsComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    ProductFilterComponent,
+    ProductCardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     AuthService,

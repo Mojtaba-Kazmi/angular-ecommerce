@@ -14,7 +14,7 @@ import { AdminAuthGuard } from './services/admin-auth-guard.service';
 import { ProductFormComponent } from './components/admin/product-form/product-form.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: ProductsComponent },
   { path: 'products', component: ProductsComponent },
   { path: 'shopping-cart', component: ShoppingCartComponent },
   { path: 'login', component: LoginComponent },

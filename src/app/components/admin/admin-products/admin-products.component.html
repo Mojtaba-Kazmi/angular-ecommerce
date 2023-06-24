@@ -1,24 +1,49 @@
 <a routerLink="/admin/products/new" class="btn btn-primary">New Product</a>
 <br />
 <br />
-<input #query (keyup)="filter(query.value)" type="text" class="form-control" placeholder="Search...">
-<br />
-<table class="table">
-    <thead>
-        <tr >
-            <th>Title</th>
-            <th>Price</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let p of filteredProducts ">
-            <td>{{p.title}}</td>
-            <td>{{p.price}}</td>
-            <td> 
-                <a [routerLink]="['/admin/products/', p.key]">Edit</a>
-            </td>
-        </tr>
-    </tbody>
-   
-</table>
+
+<mat-form-field >
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input />
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+  <!-- Table Content -->
+  <table mat-table [dataSource]="productDataSource" matSort>
+    <!-- Title Column -->
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        <strong>Title</strong>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let item"> {{ item.title }} </mat-cell>
+    </ng-container>
+
+    <!-- Price Column -->
+    <ng-container matColumnDef="price">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        <strong>Price</strong>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let item"> {{ item.price | currency: 'USD':true }} </mat-cell>
+    </ng-container>
+
+    <!-- Edit Column -->
+    <ng-container matColumnDef="edit">
+      <mat-header-cell *matHeaderCellDef> <strong>Edit</strong> </mat-header-cell>
+      <mat-cell *matCellDef="let item">
+         <a [routerLink]="['/admin/products/', item.key]"><button type="button" class="btn btn-primary">Edit</button></a>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Table Rows -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+    </tr>
+  </table>
+
+  <div class="paginator-container">
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  </div>
+  
+</div>
