@@ -12,7 +12,6 @@
           class="form-control"
           required
         />
-
         <div class="alert alert-danger" *ngIf="title.touched && title.invalid">
           <div *ngIf="title.errors?.['required']">Title is required</div>
         </div>
@@ -91,7 +90,7 @@
   </div>
   <div class="col-md-6">
     <product-card
-      [Product]="product"
+      [product]="product"
       [productData]="{
         title: title.value,
         price: price.value,

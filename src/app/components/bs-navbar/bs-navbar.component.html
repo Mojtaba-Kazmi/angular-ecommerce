@@ -15,7 +15,10 @@
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" routerLink="/shopping-cart">Shopping Cart</a>
+        <a class="nav-link" routerLink="/shopping-cart">
+          Shopping Cart
+          <span class="badge text-bg-warning" *ngIf=" cart$ | async as cart">{{ cart.totalItemsCount }}</span>
+        </a>
       </li>
       <ng-template #anonymous>
         <li class="nav-item">
@@ -25,18 +28,22 @@
 
       <li ngbDropdown class="nav-item dropdown">
         <a
-          *ngIf="appUser; else anonymous" 
+          *ngIf="appUser; else anonymous"
           ngbDropdownToggle
           class="nav-link dropdown-toggle"
           data-toggle="dropdown"
           aria-expanded="true"
-          >{{appUser.name}}</a
+          >{{ appUser.name }}</a
         >
         <div ngbDropdownMenu class="dropdown-menu">
           <a class="dropdown-item" routerLink="/my/orders">My Orders</a>
           <ng-container *ngIf="appUser.isAdmin">
-            <a class="dropdown-item" routerLink="/admin/orders">Manage Orders</a>
-            <a class="dropdown-item" routerLink="/admin/products">Manage Products</a>
+            <a class="dropdown-item" routerLink="/admin/orders"
+              >Manage Orders</a
+            >
+            <a class="dropdown-item" routerLink="/admin/products"
+              >Manage Products</a
+            >
           </ng-container>
           <a class="dropdown-item" (click)="logOut()">Logout</a>
         </div>

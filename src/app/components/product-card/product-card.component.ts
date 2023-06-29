@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Product } from 'src/app/model/product';
+import { ShoppingCart } from 'src/app/model/shopping-cart';
+import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
 
 @Component({
   selector: 'product-card',
@@ -7,13 +9,15 @@ import { Product } from 'src/app/model/product';
   styleUrls: ['./product-card.component.css'],
 })
 export class ProductCardComponent {
-  currencyCode: string = 'USD';
-  @Input('Product') product!: Product | null;
-  @Input() productData: {
-    title: string | null;
-    price: number | null;
-    imageUrl: string | null;
-  } = { title: null, price: null, imageUrl: null };
+  @Input('product') product!: Product | null;
+  @Input() productData: { title?: string; price?: number; imageUrl?: string } =
+    {};
   @Input('show-actions') showActions = true;
-  constructor() {}
+  @Input('shopping-cart') shoppingCart: ShoppingCart | any;
+
+  constructor(private cartService: ShoppingCartService) {}
+
+  addToCart() {
+    this.cartService.addToCart(this.product);
+  }
 }

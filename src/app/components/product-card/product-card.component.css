@@ -5,3 +5,12 @@
 .card {
     margin-bottom: 30px;
 }
+
+.no-gutters-custom {
+    padding-right: 40;
+    padding-left: 40;
+}
+
+.card-footer button {
+    cursor: pointer;
+}
